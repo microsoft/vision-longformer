@@ -12,9 +12,9 @@ This project provides the source code for the vision longformer paper.
 - Provides pre-trained models for different attention mechanisms. 
 
 
-## updates
+## Updates
 - 03/29/2021: First version of [vision longformer paper](https://arxiv.org/abs/2103.15358) posted on Arxiv.  <br/>
-- 04/30/2021: Performance improved by adding relative positional bias, inspired by [Swin Transformer](https://github.com/microsoft/Swin-Transformer)! Training is accelerated significantly by add random-shifting training strategy. First version of code released. 
+- 04/30/2021: Performance improved by adding relative positional bias, inspired by [Swin Transformer](https://github.com/microsoft/Swin-Transformer)! Training is accelerated significantly by adding random-shifting training strategy. First version of code released. 
 
 
 ## Multi-scale Vision Transformer Architecture 
