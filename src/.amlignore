@@ -1,0 +1,44 @@
+.ipynb_checkpoints
+azureml-logs
+.azureml
+.git
+outputs
+azureml-setup
+docs
+
+# pytorch/python/numpy formats
+*.pth
+*.pkl
+*.npy
+
+# Editor temporaries
+*.swn
+*.swo
+*.swp
+*~
+
+# latex files
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.gz
+
+# Pycharm editor settings
+.idea
+
+# VS code
+.vscode
+
+# project dirs
+data
+
+# compilation and distribution
+__pycache__
+core
+models/__pycache__/
+mymodels/__pycache__/
+optim/__pycache__/
+_ext
+*.pyc

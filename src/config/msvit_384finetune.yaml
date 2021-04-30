@@ -1,0 +1,62 @@
+DATA:
+  TRAIN: ('imagenet',)
+  TEST: ('imagenet',)
+  NUM_CLASSES: 1000
+  PATH: './datasets'
+  DATA_DIR: './data'
+LOSS:
+  LOSS: 'xentropy'
+  LABEL_SMOOTHING: 0.1
+INPUT:
+  CROP_PCT: 0.922 # match +32 practice
+  IMAGE_SIZE: 384
+  INTERPOLATION: 3
+  MEAN: [0.485, 0.456, 0.406]
+  STD: [0.229, 0.224, 0.225]
+AUG:
+  MIXUP_PROB: 0.0
+  MIXUP: 0.1
+  MIXCUT: 0.0
+  TIMM_AUG:
+    USE_TRANSFORM: False
+DATALOADER:
+  BSZ: 256
+  RE: 'no'
+  WORKERS: 6
+AMP:
+  ENABLED: True
+OPTIM:
+  OPT: 'qhm'
+  LR: 0.01
+  MOM: 0.9
+  NU: 1.0
+  WD: 0.0
+  WD0: 0.0
+  EPOCHS: 10
+MODEL:
+  ARCH: "msvit"
+  MODEL_PATH: ""
+  PRETRAINED: False
+  VIT:
+    DROP: 0.0
+    DROP_PATH: 0.1
+    NORM_EMBED: True
+    MSVIT:
+      SHARE_W: True
+      SHARE_KV: True
+      SW_EXACT: 0
+SOLVER:
+  EPOCH_BASED_SCHEDULE: False
+  LR_POLICY: cosine
+  MIN_LR: 1e-06
+  USE_LARC: False
+  WARMUP_EPOCHS: 0.25
+  WARMUP_FACTOR: 0.002
+  WARMUP_METHOD: linear
+FINETUNE:
+  FINETUNE: True
+  USE_TRAIN_AUG: False
+OUTPUT_DIR: "/tmp"
+LOG_FREQ: 100
+EVALUATE: False
+ONLY_SAVE_LAST: 0
