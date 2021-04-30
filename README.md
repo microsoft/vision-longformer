@@ -11,6 +11,12 @@ This project provides the source code for the vision longformer paper.
 - **Compare multiple efficient attention mechanisms:** vision-longformer ("global + conv_like local") attention, [performer attention](https://arxiv.org/abs/2009.14794), global-memory attention, [linformer attention](https://arxiv.org/abs/2006.04768) and [spatial reduction attention](https://arxiv.org/abs/2102.12122).
 - Provides pre-trained models for different attention mechanisms. 
 
+
+## updates
+- 03/29/2021: First version of [vision longformer paper](https://arxiv.org/abs/2103.15358) posted on Arxiv.  <br/>
+- 04/30/2021: Performance improved by adding relative positional bias, inspired by [Swin Transformer](https://github.com/microsoft/Swin-Transformer)! Training is accelerated significantly by add random-shifting training strategy. First version of code released. 
+
+
 ## Multi-scale Vision Transformer Architecture 
 <img src="docs/stacked_vits.PNG" width="650"> 
 
