@@ -15,7 +15,7 @@ This project provides the source code for the vision longformer paper.
 ## Updates
 - 03/29/2021: First version of [vision longformer paper](https://arxiv.org/abs/2103.15358) posted on Arxiv.  <br/>
 - 04/30/2021: Performance improved by adding relative positional bias, inspired by [Swin Transformer](https://github.com/microsoft/Swin-Transformer)! Training is accelerated significantly by adding random-shifting training strategy. First version of code released. 
-
+- 05/17/2021: First version of Object Detection code and checkpoints released at [VisionLongformerForObjectDetection](https://github.com/microsoft/VisionLongformerForObjectDetection).
 
 ## Multi-scale Vision Transformer Architecture 
 <img src="docs/stacked_vits.PNG" width="650"> 
@@ -109,54 +109,57 @@ Base-Wide  | n1,p4,h3,d192 | n2,p2,h6,d384 | n8,p2,h12,d768 | n1,p2,h16,d1024 |
 | srformer/64 | ImageNet-1K | 224x224 | 76.4 | 92.9 | 52.9M | 3.97G | - | [ckpt](https://penzhanwu2.blob.core.windows.net/imagenet/msvit/srformer/srformerfull1281/model_best.pth), [config](https://penzhanwu2.blob.core.windows.net/imagenet/msvit/srformer/srformerfull1281/config.yaml) |
 | srformer/32 | ImageNet-1K | 224x224 | 79.9 | 94.9 | 31.1M | 4.28G | - | [ckpt](https://penzhanwu2.blob.core.windows.net/imagenet/msvit/srformer/srformerfull8_1281/model_best.pth), [config](https://penzhanwu2.blob.core.windows.net/imagenet/msvit/srformer/srformerfull8_1281/config.yaml) |
 | global | ImageNet-1K | 224x224 | 79.0 | 94.5 | 24.9M | 6.78G | - | [ckpt](https://penzhanwu2.blob.core.windows.net/imagenet/msvit/globalformer/globalfull1281/model_best.pth), [config](https://penzhanwu2.blob.core.windows.net/imagenet/msvit/globalformer/globalfull1281/config.yaml) |
-| performer | ImageNet-1K | 224x224 | 78.7 | 94.3 | 24.8M | 6.26G | - | [ckpt](https://penzhanwu2.blob.core.windows.net/imagenet/msvit/performer/partialperformer1281/model_best.pth), [config](https://penzhanwu2.blob.core.windows.net/imagenet/msvit/performer/partialperformer1281/config.yaml) |
+| performer | ImageNet-1K | 224x224 | 78.7 | 94.3 | 24.8M | 6.26G | - | [ckpt](https://penzhanwu2.blob.core.windows.net/imagenet/msvit/performer/fullperformer1281/model_best.pth), [config](https://penzhanwu2.blob.core.windows.net/imagenet/msvit/performer/fullperformer1281/config.yaml) |
 | --- | --- | --- | --- | --- | --- | --- | --- |--- |
 | partial linformer | ImageNet-1K | 224x224 | 81.8 | 95.9 | 25.8M | 5.21G | - | [ckpt](https://penzhanwu2.blob.core.windows.net/imagenet/msvit/linformer/small1281_partial/model_best.pth), [config](https://penzhanwu2.blob.core.windows.net/imagenet/msvit/linformer/small1281_partial/config.yaml) |
 | partial srformer/32 | ImageNet-1K | 224x224 | 81.6 | 95.7 | 26.4M | 4.57G | - | [ckpt](https://penzhanwu2.blob.core.windows.net/imagenet/msvit/srformer/srformerpartial1281/model_best.pth), [config](https://penzhanwu2.blob.core.windows.net/imagenet/msvit/srformer/srformerpartial1281/config.yaml) |
-| partial global | ImageNet-1K | 224x224 | 81.4 | 95.7 | 24.9M | 6.3G | - | [ckpt](https://penzhanwu2.blob.core.windows.net/imagenet/msvit/globalformer/globalpartial1281/model_best.pth), [config](https://penzhanwu2.blob.core.windows.net/imagenet/msvit/globalformer/globalpartial1281/config.yaml) |
+| partial global | ImageNet-1K | 224x224 | 81.4 | 95.7 | 24.9M | 6.3G | - | [ckpt](https://penzhanwu2.blob.core.windows.net/imagenet/msvit/globalformer/globalpartial1281_new/model_best.pth), [config](https://penzhanwu2.blob.core.windows.net/imagenet/msvit/globalformer/globalpartial1281_new/config.yaml) |
 | partial performer | ImageNet-1K | 224x224 | 81.7 | 95.7 | 24.7M | 5.52G | - | [ckpt](https://penzhanwu2.blob.core.windows.net/imagenet/msvit/performer/partialperformer1281/model_best.pth), [config](https://penzhanwu2.blob.core.windows.net/imagenet/msvit/performer/partialperformer1281/config.yaml) |
 
 See more results on comparing different efficient attention mechanisms in Table 13 and Table 14 in the [Vision Longformer paper](https://arxiv.org/abs/2103.15358).
 
 ### Main Results on COCO object detection and instance segmentation (with absolute positional embedding)
 
-**Vision Longformer with absolute positional embedding**
+**Vision Longformer with relative positional bias**
 
-| Backbone | Method | pretrain | Lr Schd | box mAP | mask mAP | #params | FLOPs |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| ViL-Tiny | RetinaNet | ImageNet-1K | 1x | 38.8 | -- | 16.64M | 182.7G |
-| ViL-Tiny | RetinaNet | ImageNet-1K | 3x | 40.7 | -- | 16.64M | 182.7G |
-| ViL-Small | RetinaNet | ImageNet-1K | 1x | 41.6 | -- | 35.68M | 254.8G |
-| ViL-Small | RetinaNet | ImageNet-1K | 3x | 42.9 | -- | 35.68M | 254.8G |
-| ViL-Medium (D) | RetinaNet | ImageNet-1K | 1x | 42.9 | -- | 50.77M | 330.4G |
-| ViL-Medium (D) | RetinaNet | ImageNet-1K | 3x | 43.7 | -- | 50.77M | 330.4G |
-| ViL-Base (D) | RetinaNet | ImageNet-1K | 1x | 44.3 | -- | 66.74M | 420.9G |
-| ViL-Base (D) | RetinaNet | ImageNet-1K | 3x | 44.7 | -- | 66.74M | 420.9G |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| ViL-Tiny | Mask R-CNN | ImageNet-1K | 1x | 38.7 | 36.2 | 26.9M | 145.6G |
-| ViL-Tiny | Mask R-CNN | ImageNet-1K | 3x | 41.2 | 37.9 | 26.9M | 145.6G |
-| ViL-Small | Mask R-CNN | ImageNet-1K | 1x | 41.8 | 38.5 | 45.0M | 218.3G |
-| ViL-Small | Mask R-CNN | ImageNet-1K | 3x | 43.4 | 39.6 | 45.0M | 218.3G |
-| ViL-Medium (D) | Mask R-CNN | ImageNet-1K | 1x | 43.4 | 39.7 | 60.1M | 293.8G |
-| ViL-Medium (D) | Mask R-CNN | ImageNet-1K | 3x | 44.6 | 40.7 | 60.1M | 293.8G |
-| ViL-Base (D) | Mask R-CNN | ImageNet-1K | 1x | 45.1 | 41.0 | 76.1M | 384.4G |
-| ViL-Base (D) | Mask R-CNN | ImageNet-1K | 3x | 45.7 | 41.3 | 76.1M | 384.4G |
+| Backbone | Method | pretrain | drop_path | Lr Schd | box mAP | mask mAP | #params | FLOPs | checkpoints | log | 
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| ViL-Tiny | Mask R-CNN | ImageNet-1K | 0.05 | 1x | 41.4 | 38.1 | 26.9M | 145.6G | [ckpt](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/visionlongformer/viltiny/maskrcnn1x/model_final.pth) [config](configs/msvit_maskrcnn_fpn_1x_tiny_sparse.yaml) | [log](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/visionlongformer/viltiny/maskrcnn1x/stdout.txt) |
+| ViL-Tiny | Mask R-CNN | ImageNet-1K | 0.1 | 3x | 44.2 | 40.6 | 26.9M | 145.6G | [ckpt](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/visionlongformer/viltiny/maskrcnn3x/model_final.pth) [config](configs/msvit_maskrcnn_fpn_3xms_tiny_sparse.yaml) | [log](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/visionlongformer/viltiny/maskrcnn3x/stdout.txt) |
+| ViL-Small | Mask R-CNN | ImageNet-1K | 0.2 | 1x | 45.0 | 41.2 | 45.0M | 218.3G | [ckpt](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/visionlongformer/vilsmall/maskrcnn1x/model_final.pth) [config](configs/msvit_maskrcnn_fpn_1x_small_sparse.yaml) | [log](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/visionlongformer/vilsmall/maskrcnn1x/stdout.txt) |
+| ViL-Small | Mask R-CNN | ImageNet-1K | 0.2 | 3x | 47.1 | 42.7 | 45.0M | 218.3G | [ckpt](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/visionlongformer/vilsmall/maskrcnn3x/model_final.pth) [config](configs/msvit_maskrcnn_fpn_3xms_small_sparse.yaml) | [log](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/visionlongformer/vilsmall/maskrcnn3x/stdout.txt) |
+| ViL-Medium (D) | Mask R-CNN | ImageNet-21K | 0.2 | 1x | 47.6 | 43.0 | 60.1M | 293.8G | [ckpt](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/visionlongformer/vilmedium/maskrcnn1x/model_final.pth) [config](configs/msvit_maskrcnn_fpn_1x_medium_sparse.yaml) | [log](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/visionlongformer/vilmedium/maskrcnn1x/stdout.txt) |
+| ViL-Medium (D) | Mask R-CNN | ImageNet-21K | 0.3 | 3x | 48.9 | 44.2 | 60.1M | 293.8G | [ckpt](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/visionlongformer/vilmedium/maskrcnn3x/model_final.pth) [config](configs/msvit_maskrcnn_fpn_3xms_medium_sparse.yaml) | [log](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/visionlongformer/vilmedium/maskrcnn3x/stdout.txt) |
+| ViL-Base (D) | Mask R-CNN | ImageNet-21K | 0.3 | 1x | 48.6 | 43.6 | 76.1M | 384.4G | [ckpt](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/visionlongformer/vilbase/maskrcnn1x/model_final.pth) [config](configs/msvit_maskrcnn_fpn_1x_large_sparse.yaml) | [log](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/visionlongformer/vilbase/maskrcnn1x/stdout.txt) |
+| ViL-Base (D) | Mask R-CNN | ImageNet-21K | 0.3 | 3x | 49.6 | 44.5 | 76.1M | 384.4G | [ckpt](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/visionlongformer/vilbase/maskrcnn3x/model_final.pth) [config](configs/msvit_maskrcnn_fpn_3xms_large_sparse.yaml) | [log](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/visionlongformer/vilbase/maskrcnn3x/stdout.txt) |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| ViL-Tiny | RetinaNet | ImageNet-1K | 0.05 | 1x | 40.8 | -- | 16.64M | 182.7G | [ckpt](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/visionlongformer/viltiny/retinanet1x/model_final.pth) [config](configs/msvit_retina_fpn_1x.yaml) | [log](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/visionlongformer/viltiny/retinanet1x/stdout.txt) |
+| ViL-Tiny | RetinaNet | ImageNet-1K | 0.1 | 3x | 43.6 | -- | 16.64M | 182.7G | [ckpt](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/visionlongformer/viltiny/retinanet3x/model_final.pth) [config](configs/msvit_retina_fpn_3x_ms.yaml) | [log](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/visionlongformer/viltiny/retinanet3x/stdout.txt) |
+| ViL-Small | RetinaNet | ImageNet-1K | 0.1 | 1x | 44.2 | -- | 35.68M | 254.8G | [ckpt](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/visionlongformer/vilsmall/retinanet1x/model_final.pth) [config](configs/msvit_retina_fpn_1x.yaml) | [log](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/visionlongformer/vilsmall/retinanet1x/stdout.txt) |
+| ViL-Small | RetinaNet | ImageNet-1K | 0.2 | 3x | 45.9 | -- | 35.68M | 254.8G | [ckpt](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/visionlongformer/vilsmall/retinanet3x/model_final.pth) [config](configs/msvit_retina_fpn_3x_ms.yaml) | [log](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/visionlongformer/vilsmall/retinanet3x/stdout.txt) |
+| ViL-Medium (D) | RetinaNet | ImageNet-21K | 0.2 | 1x | 46.8 | -- | 50.77M | 330.4G | [ckpt](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/visionlongformer/vilmedium/retinanet1x/model_final.pth) [config](configs/msvit_retina_fpn_1x.yaml) | [log](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/visionlongformer/vilmedium/retinanet1x/stdout.txt) |
+| ViL-Medium (D) | RetinaNet | ImageNet-21K | 0.3 | 3x | 47.9 | -- | 50.77M | 330.4G | [ckpt](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/visionlongformer/vilmedium/retinanet3x/model_final.pth) [config](configs/msvit_retina_fpn_3x_ms.yaml) | [log](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/visionlongformer/vilmedium/retinanet3x/stdout.txt) |
+| ViL-Base (D) | RetinaNet | ImageNet-21K | 0.3 | 1x | 47.8 | -- | 66.74M | 420.9G | [ckpt](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/visionlongformer/vilbase/retinanet1x/model_final.pth) [config](configs/msvit_retina_fpn_1x.yaml) | [log](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/visionlongformer/vilbase/retinanet1x/stdout.txt) |
+| ViL-Base (D) | RetinaNet | ImageNet-21K | 0.3 | 3x | 48.6 | -- | 66.74M | 420.9G | [ckpt](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/visionlongformer/vilbase/retinanet3x/model_final.pth) [config](configs/msvit_retina_fpn_3x_ms.yaml) | [log](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/visionlongformer/vilbase/retinanet3x/stdout.txt) |
 
-See more fine-grained results in Table 6 and Table 7 in the [Vision Longformer paper](https://arxiv.org/abs/2103.15358).
+See more fine-grained results in Table 6 and Table 7 in the [Vision Longformer paper](https://arxiv.org/abs/2103.15358). We use weight decay 0.05 for all experiments, but search for best drop path in [0.05, 0.1, 0.2, 0.3]. 
 
-**Results of other attention mechanims (Small size)**
+**Comparison of various efficient attention mechanims with absolute positional embedding (Small size)**
 
-| Backbone | Method | pretrain | Lr Schd | box mAP | mask mAP | #params | FLOPs | Memory |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| srformer/64 | Mask R-CNN | ImageNet-1K | 1x | 35.7 | 33.6 | 73.3M | 224.1G | 7.1G |
-| srformer/32 | Mask R-CNN | ImageNet-1K | 1x | 39.8 | 36.8 | 51.5M | 268.3G | 13.6G |
-| Partial srformer/32 | Mask R-CNN | ImageNet-1K | 1x | 41.1 | 38.1 | 46.8M | 352.1G | 22.6G |
-| global | Mask R-CNN | ImageNet-1K | 1x | 34.1 | 32.5 | 45.2M | 226.4G | 7.6G |
-| Partial global | Mask R-CNN | ImageNet-1K | 1x | 41.3 | 38.2 | 45.1M | 326.5G | 20.1G |
-| performer | Mask R-CNN | ImageNet-1K | 1x | 35.0 | 33.1 | 45.0M | 251.5G | 8.4G |
-| Partial performer | Mask R-CNN | ImageNet-1K | 1x | 41.7 | 38.4 | 45.0M | 343.7G | 20.0G |
-| ViL | Mask R-CNN | ImageNet-1K | 1x | 41.3. | 38.1 | 45.0M | 218.3G | 7.4G |
-| Partial ViL | Mask R-CNN | ImageNet-1K | 1x | 42.6 | 39.3 | 45.0M | 326.8G | 19.5G |
+| Backbone | Method | pretrain | drop_path | Lr Schd | box mAP | mask mAP | #params | FLOPs | Memory | checkpoints | log | 
+| :---: | :---: | :---: | :---: | :---:  | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| srformer/64 | Mask R-CNN | ImageNet-1K | 0.1 | 1x | 36.4 | 34.6 | 73.3M | 224.1G | 7.1G | [ckpt](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/attn_ablation_withape/srformer64/model_final.pth) [config](configs/msvit_maskrcnn_fpn_1x_srformer32_small_sparse.yaml) | [log](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/attn_ablation_withape/srformer64/stdout.txt) |
+| srformer/32 | Mask R-CNN | ImageNet-1K | 0.1 | 1x | 39.9 | 37.3 | 51.5M | 268.3G | 13.6G | [ckpt](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/attn_ablation_withape/srformer32/model_final.pth) [config](configs/msvit_maskrcnn_fpn_1x_srformer64_small_sparse.yaml) | [log](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/attn_ablation_withape/srformer32/stdout.txt) |
+| Partial srformer/32 | Mask R-CNN | ImageNet-1K | 0.1 | 1x | 42.4 | 39.0 | 46.8M | 352.1G | 22.6G | [ckpt](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/attn_ablation_withape/srformerpartial/model_final.pth) [config](configs/msvit_maskrcnn_fpn_1x_srformer32_small.yaml) | [log](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/attn_ablation_withape/srformerpartial/stdout.txt) |
+| global | Mask R-CNN | ImageNet-1K | 0.1 | 1x | 34.8 | 33.4 | 45.2M | 226.4G | 7.6G | [ckpt](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/attn_ablation_withape/global/model_final.pth) [config](configs/msvit_maskrcnn_fpn_1x_gformer_small_sparse.yaml) | [log](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/attn_ablation_withape/global/stdout.txt) |
+| Partial global | Mask R-CNN | ImageNet-1K | 0.1 | 1x | 42.5 | 39.2 | 45.1M | 326.5G | 20.1G | [ckpt](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/attn_ablation_withape/globalpartial/model_final.pth) [config](configs/msvit_maskrcnn_fpn_1x_gformer_small.yaml) | [log](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/attn_ablation_withape/globalpartial/stdout.txt) |
+| performer | Mask R-CNN | ImageNet-1K | 0.1 | 1x | 36.1 | 34.3 | 45.0M | 251.5G | 8.4G | [ckpt](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/attn_ablation_withape/performer/model_final.pth) [config](configs/msvit_maskrcnn_fpn_1x_performer_small_sparse.yaml) | [log](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/attn_ablation_withape/performer/stdout.txt) |
+| Partial performer | Mask R-CNN | ImageNet-1K | 0.05 | 1x | 42.3 | 39.1 | 45.0M | 343.7G | 20.0G | [ckpt](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/attn_ablation_withape/performerpartial/model_final.pth) [config](configs/msvit_maskrcnn_fpn_1x_performer_small.yaml) | [log](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/attn_ablation_withape/performerpartial/stdout.txt) |
+| ViL | Mask R-CNN | ImageNet-1K | 0.1 | 1x | 42.9 | 39.6 | 45.0M | 218.3G | 7.4G | [ckpt](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/attn_ablation_withape/longformer/model_final.pth) [config](configs/msvit_maskrcnn_fpn_1x_small.yaml) | [log](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/attn_ablation_withape/longformer/stdout.txt) |
+| Partial ViL | Mask R-CNN | ImageNet-1K | 0.1 | 1x | 43.3 | 39.8 | 45.0M | 326.8G | 19.5G | [ckpt](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/attn_ablation_withape/longformerpartial/model_final.pth) [config](configs/msvit_maskrcnn_fpn_1x_small_sparse.yaml) | [log](https://penzhanwu2.blob.core.windows.net/imagenet/msvit_det/attn_ablation_withape/longformerpartial/stdout.txt) |
+
+We use weight decay 0.05 for all experiments, but search for best drop path in [0.05, 0.1, 0.2].
+
 
 
 ## Compare different implementations of vision longformer
