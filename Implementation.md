@@ -60,11 +60,11 @@ _C.MODEL.VIT.MSVIT.VIL_MODE_SWITCH = 0.75
 ```
 We also allow to switch from the random-shifting attention mode to the default 8-neighbor attention mode after `75%` training iterations. 
 This switching time `75%` is controlled by the parameter `_C.MODEL.VIT.MSVIT.VIL_MODE_SWITCH `. 
-This random-shifting training strategy accelerate the vision-longformer training significantly. 
+This random-shifting training strategy accelerates the vision-longformer training significantly. 
 
 ## Try the customized CUDA kernel
 
-First, download the [customized CUDA kernel files](https://penzhanwu2.blob.core.windows.net/imagenet/msvit/visionlongformer/deepbase_18241_lr8e-4/), extract the files and put them in the corresponding places in the code folder.
+First, download the [customized CUDA kernel files](https://penzhanwu2.blob.core.windows.net/imagenet/msvit/visionlongformer/vision_longformer_cuda.zip), extract the files and put them in the corresponding places in the code folder.
 
 You can test the correctness of your installation with this [script](src/tests/test_cuda_kernel.py).
 
