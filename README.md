@@ -14,9 +14,10 @@ This project provides the source code for the vision longformer paper.
 
 ## Updates
 - 03/29/2021: First version of [vision longformer paper](https://arxiv.org/abs/2103.15358) posted on Arxiv.  <br/>
-- 04/30/2021: Performance improved by adding relative positional bias, inspired by [Swin Transformer](https://github.com/microsoft/Swin-Transformer)! Training is accelerated significantly by adding random-shifting training strategy. First version of code released. 
-- 05/17/2021: First version of Object Detection code and checkpoints released at [VisionLongformerForObjectDetection](https://github.com/microsoft/VisionLongformerForObjectDetection).
-- 05/27/2021: [vision longformer paper](https://arxiv.org/abs/2103.15358) is updated on Arxiv to reflect the recent changes. The object detection results are improved significantly due to the relative positional bias and tuning of the drop_path hyper-parameter.
+- 04/30/2021: Performance improved by adding relative positional bias, inspired by [Swin Transformer](https://github.com/microsoft/Swin-Transformer)! Training is accelerated significantly by adding random-shifting training strategy. First version of code released. <br/>
+- 05/17/2021: First version of Object Detection code and checkpoints released at [VisionLongformerForObjectDetection](https://github.com/microsoft/VisionLongformerForObjectDetection). <br/>
+- 05/27/2021: [vision longformer paper](https://arxiv.org/abs/2103.15358) is updated on Arxiv to reflect the recent changes. The object detection results are improved significantly due to the relative positional bias and tuning of the drop_path hyper-parameter. <br/>
+- 07/23/2021: Vision Longformer is officially accepted by ICCV 2021. <br/>
 
 ## Multi-scale Vision Transformer Architecture 
 <img src="docs/stacked_vits.PNG" width="650"> 
@@ -307,7 +308,7 @@ Please consider citing vision longformer if it helps your work.
 @article{zhang2021multi,
   title={Multi-Scale Vision Longformer: A New Vision Transformer for High-Resolution Image Encoding},
   author={Zhang, Pengchuan and Dai, Xiyang and Yang, Jianwei and Xiao, Bin and Yuan, Lu and Zhang, Lei and Gao, Jianfeng},
-  journal={arXiv preprint arXiv:2103.15358},
+  journal={ICCV 2021},
   year={2021}
 }
 ```
