@@ -138,6 +138,7 @@ class FastAttention(nn.Module):
         # if this is turned on, no projection will be used
         # queries and keys will be softmax-ed as in the original efficient attention paper
         self.no_projection = no_projection
+        self.__flops__ = 0
 
     @torch.no_grad()
     def redraw_projection_matrix(self, device):
