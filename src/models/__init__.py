@@ -4,6 +4,7 @@ import logging
 import torch.nn as nn
 import torchvision.models as tvmodels
 from .msvit import MsViT
+from .conv_aa_msvit import MsViTAA
 
 
 def build_model(cfg):
@@ -15,7 +16,7 @@ def build_model(cfg):
 
     # Vision Transformer models
     vitmodeldict = {
-        'msvit': MsViT,
+        'msvit': MsViTAA,
     }
     vit_model_names = list(vitmodeldict.keys())
     print("Vision Transformer models: \n", vit_model_names)

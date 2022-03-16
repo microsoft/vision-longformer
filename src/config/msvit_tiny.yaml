@@ -1,0 +1,107 @@
+AUG:
+  COLOR_JITTER: [0.4, 0.4, 0.4, 0.1, 0.0]
+  DROPBLOCK_BLOCK_SIZE: 7
+  DROPBLOCK_KEEP_PROB: 1.0
+  DROPBLOCK_LAYERS: [3, 4]
+  GAUSSIAN_BLUR: 0.0
+  GRAY_SCALE: 0.0
+  MIXCUT: 1.0
+  MIXCUT_AND_MIXUP: False
+  MIXCUT_MINMAX: []
+  MIXUP: 0.8
+  MIXUP_MODE: batch
+  MIXUP_PROB: 1.0
+  MIXUP_SWITCH_PROB: 0.5
+  RATIO: (0.75, 1.3333333333333333)
+  REPEATED_AUG: False
+  SCALE: (0.08, 1.0)
+  TIMM_AUG:
+    AUTO_AUGMENT: rand-m9-mstd0.5-inc1
+    COLOR_JITTER: 0.4
+    HFLIP: 0.5
+    RE_COUNT: 1
+    RE_MODE: pixel
+    RE_PROB: 0.25
+    RE_SPLIT: False
+    USE_TRANSFORM: True
+    VFLIP: 0.0
+BACKUP_LOG_DIR: 
+DATA:
+  DATA_DIR: ./data
+  NUM_CLASSES: 1000
+  #PATH: /home/rzhang/Dev/vision-longformer/datasets/cifar10
+  PATH: /home/rzhang/Dev/vision-longformer/datasets/imagenet/2012
+  TARGETMAP: 
+  TEST: ('imagenet',)
+  TRAIN: ('imagenet',)
+DATALOADER:
+  BSZ: 8
+  RE: 'no'
+  WORKERS: 2
+DISTRIBUTED_BACKEND: nccl
+EVALUATE: False
+FINETUNE:
+  FINETUNE: False
+  USE_TRAIN_AUG: False
+GATHER_ON_CPU: False
+INPUT:
+  CROP_PCT: 0.875
+  IMAGE_SIZE: 224
+  INTERPOLATION: 3
+  MEAN: [0.485, 0.456, 0.406]
+  STD: [0.229, 0.224, 0.225]
+LOG_FREQ: 100
+LOSS:
+  FOCAL:
+    ALPHA: 1.0
+    GAMMA: 0.5
+    NORMALIZE: True
+  LABEL_SMOOTHING: 0.1
+  LOSS: xentropy
+MODEL:
+  ARCH: msvit
+  FREEZE_CONV_BODY_AT: -1
+  NONLINEARITY: celu
+  PRETRAINED: False
+  VIT:
+    AVG_POOL: False
+    DROP: 0.0
+    DROP_PATH: 0.1
+    MSVIT:
+      ARCH: l1,h1,d64,n1,s1,g1,p16,f7_l2,h3,d96,n1,s1,g1,p1,f7_l3,h3,d192,n9,s0,g1,p1,f7_l4,h6,d384,n1,s0,g0,p1,f7
+      ATTN_TYPE: longformerhand
+      LN_EPS: 1e-06
+      ONLY_GLOBAL: False
+      SHARE_KV: True
+      SHARE_W: True
+      SW_EXACT: 0
+    NORM_EMBED: True
+ONLY_SAVE_LAST: 0
+OPTIM:
+  ADAM:
+    BETA1: 0.9
+    BETA2: 0.999
+    EPS: 1e-08
+  DROP_FACTOR: 10.0
+  DROP_FREQ: 30
+  EPOCHS: 10
+  LR: 0.001
+  MOM: 0.9
+  NU: 1.0
+  OPT: adamw
+  TEST_FREQ: 1000
+  VAL: 0
+  WARMUP: 0
+  WD: 0.1
+  WD0: 0.0
+OUTPUT_DIR: ../run/imagenet/msvittest
+OUTPUT_PERCLASS_ACC: False
+SOLVER:
+  DETECT_ANOMALY: False
+  EPOCH_BASED_SCHEDULE: False
+  LR_POLICY: cosine
+  MIN_LR: 1e-06
+  USE_LARC: False
+  WARMUP_EPOCHS: 5.0
+  WARMUP_FACTOR: 0.002
+  WARMUP_METHOD: linear

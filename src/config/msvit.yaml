@@ -1,7 +1,7 @@
 DATA:
-  TRAIN: ('imagenet',)
-  TEST: ('imagenet',)
   NUM_CLASSES: 1000
+  TEST: ('imagenet',)
+  TRAIN: ('imagenet',)
   PATH: './datasets'
   DATA_DIR: './data'
 LOSS:
@@ -24,9 +24,9 @@ AUG:
     VFLIP: 0.0
     COLOR_JITTER: 0.4
 DATALOADER:
-  BSZ: 256
+  BSZ: 8
   RE: 'no'
-  WORKERS: 6
+  WORKERS: 2
 AMP:
   ENABLED: True
 OPTIM:
@@ -46,19 +46,24 @@ OPTIM:
     BETA1: 0.9
     BETA2: 0.999
 MODEL:
-  ARCH: "msvit"
-  MODEL_PATH: ""
-  PRETRAINED: False
+  ARCH: msvit
+  FREEZE_CONV_BODY_AT: -1
+  MODEL_PATH: /home/rzhang/Dev/vision-longformer/pretrained/model_best.pth
+  NONLINEARITY: celu
+  PRETRAINED: True
   VIT:
+    AVG_POOL: False
     DROP: 0.0
     DROP_PATH: 0.1
-    NORM_EMBED: True
     MSVIT:
-      SHARE_W: True
+      ARCH: l1,h1,d48,n1,s1,g1,p4,f7_l2,h3,d96,n1,s1,g1,p2,f7_l3,h3,d192,n9,s0,g1,p2,f7_l4,h6,d384,n1,s0,g0,p2,f7
+      ATTN_TYPE: longformerhand
+      LN_EPS: 1e-06
+      ONLY_GLOBAL: False
       SHARE_KV: True
+      SHARE_W: True
       SW_EXACT: 0
-      MODE: 0
-      VIL_MODE_SWITCH: 0.75
+    NORM_EMBED: True
 SOLVER:
   LR_POLICY: 'cosine'
   WARMUP_FACTOR: 0.002
@@ -67,5 +72,5 @@ SOLVER:
 OUTPUT_DIR: "/tmp"
 BACKUP_LOG_DIR: ""
 LOG_FREQ: 100
-EVALUATE: False
+EVALUATE: True
 ONLY_SAVE_LAST: 0
